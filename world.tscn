@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://guy.gd" type="Script" id=1]
 [ext_resource path="res://Models/Sword WIP.obj" type="ArrayMesh" id=2]
@@ -14,6 +14,9 @@ albedo_color = Color( 0, 0, 0, 1 )
 radius = 0.5
 height = 0.5
 
+[sub_resource type="CylinderShape" id=10]
+radius = 0.2
+
 [sub_resource type="CylinderShape" id=9]
 height = 0.5
 radius = 3.2
@@ -24,6 +27,10 @@ radius = 3.2
 
 [sub_resource type="SpatialMaterial" id=8]
 albedo_color = Color( 0.0470588, 0.415686, 0.156863, 1 )
+
+[sub_resource type="BoxShape" id=11]
+
+[sub_resource type="CubeMesh" id=12]
 
 [node name="Spatial" type="Spatial"]
 
@@ -56,9 +63,15 @@ transform = Transform( -1.09278e-08, -1.09278e-08, 0.25, -0.25, 4.77671e-16, -1.
 mesh = ExtResource( 2 )
 skeleton = NodePath("")
 
-[node name="Area" type="Area" parent="guy"]
+[node name="swordcollider" type="RigidBody" parent="guy/pivot"]
 
-[node name="CollisionShape" type="CollisionShape" parent="guy/Area"]
+[node name="CollisionShape" type="CollisionShape" parent="guy/pivot/swordcollider"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.9 )
+shape = SubResource( 10 )
+
+[node name="mousespace" type="Area" parent="guy"]
+
+[node name="CollisionShape" type="CollisionShape" parent="guy/mousespace"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 9 )
 
@@ -67,14 +80,39 @@ transform = Transform( 0.707107, -0.612372, 0.353553, 0, 0.5, 0.866025, -0.70710
 projection = 1
 size = 20.0
 
-[node name="StaticBody" type="StaticBody" parent="."]
+[node name="ground" type="StaticBody" parent="."]
 transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, -1, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="ground"]
 shape = SubResource( 6 )
 
-[node name="MeshInstance" type="MeshInstance" parent="StaticBody/CollisionShape"]
+[node name="MeshInstance" type="MeshInstance" parent="ground/CollisionShape"]
 mesh = SubResource( 7 )
 material/0 = SubResource( 8 )
 
-[connection signal="input_event" from="guy/Area" to="guy" method="_on_Area_input_event"]
+[node name="body" type="CSGMesh" parent="."]
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 1, 0 )
+mesh = SubResource( 1 )
+
+[node name="CSGMesh" type="CSGMesh" parent="body"]
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.3, 0.8, 0.6 )
+mesh = SubResource( 2 )
+material = SubResource( 3 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="body"]
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.3, 0.8, 0.6 )
+mesh = SubResource( 2 )
+material = SubResource( 3 )
+
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 0.6, -1.8 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+shape = SubResource( 11 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody/CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+mesh = SubResource( 12 )
+
+[connection signal="input_event" from="guy/mousespace" to="guy" method="_on_Area_input_event"]

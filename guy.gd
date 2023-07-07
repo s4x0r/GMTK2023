@@ -18,7 +18,7 @@ func _ready():
 
 func _on_Area_input_event(camera:Node, event:InputEvent, position:Vector3, normal:Vector3, shape_idx:int):
 	if event is InputEventMouseMotion:
-		print(position)
+		#print(position)
 		$pivot.look_at(Vector3(position.x, $pivot.translation.y, position.z), Vector3.UP)
 	
 	pass # Replace with function body.
