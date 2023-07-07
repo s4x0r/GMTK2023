@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://blocks/road.tscn" type="PackedScene" id=4]
+[ext_resource path="res://cam.gd" type="Script" id=5]
+[ext_resource path="res://ui.tscn" type="PackedScene" id=6]
+[ext_resource path="res://world.gd" type="Script" id=7]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.356863, 0.356863, 0.356863, 1 )
+
+[node name="world" type="Spatial"]
+script = ExtResource( 7 )
+
+[node name="cam" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Camera" type="Camera" parent="cam"]
+transform = Transform( 0.707107, -0.612372, 0.353553, 0, 0.5, 0.866025, -0.707107, -0.612372, 0.353553, 7, 18, 7 )
+projection = 1
+size = 20.0
+
+[node name="ball" type="MeshInstance" parent="cam/Camera"]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, -20 )
+visible = false
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 2 )
+
+[node name="ui" parent="cam" groups=["ui"] instance=ExtResource( 6 )]
+visible = false
+mouse_filter = 1
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 8, 0 )
+
+[node name="mainst" parent="." instance=ExtResource( 4 )]
