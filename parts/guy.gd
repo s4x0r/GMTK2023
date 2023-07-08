@@ -26,13 +26,14 @@ func _physics_process(_delta):
 		print($Camera.size)
 		$Camera.size+=5
 	if direction != Vector3.ZERO:
+		$body.look_at(to_global(velocity), Vector3.UP)
 		direction = direction.normalized()
 
 
 	velocity.x = direction.x * speed
 	velocity.z = direction.z * speed
 	
-	$body.look_at(velocity, Vector3.UP)
+	
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
 
