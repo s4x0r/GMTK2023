@@ -2,7 +2,7 @@ extends KinematicBody
 
 # How fast the player moves in meters per second.
 export var speed = 14
-var gravity = 14
+var gravity = 50
 var velocity = Vector3.ZERO
 var hp = 20
 var rolling = false
@@ -33,11 +33,15 @@ func _physics_process(delta):
 
 	if Input.is_action_just_released("zoom_in"):
 		#print($Camera.size)
-		$Camera.size-=5
+		if $Camera.size >1:
+			$Camera.size-=5
 
 	if Input.is_action_just_released("zoom_out"):
 		#print($Camera.size)
-		$Camera.size+=5
+		if $Camera.size < 100:
+			$Camera.size+=5
+		
+		
 	if direction != Vector3.ZERO:
 		$body.look_at(to_global(velocity), Vector3.UP)
 		direction = direction.normalized()
@@ -61,7 +65,7 @@ func _physics_process(delta):
 func _on_Area_input_event(camera:Node, event:InputEvent, position:Vector3, normal:Vector3, shape_idx:int):
 	if event is InputEventMouseMotion:
 		#print(position)
-		$pivot.look_at(Vector3(position.x, $pivot.translation.y, position.z), Vector3.UP)
+		$pivot.look_at(Vector3(position.x, to_global($pivot.translation).y, position.z), Vector3.UP)
 	
 	pass # Replace with function body.
 
