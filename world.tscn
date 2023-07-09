@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://parts/guy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Models/Small Rock.obj" type="ArrayMesh" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://parts/chest.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Models/Pot.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://parts/killscreen.tscn" type="PackedScene" id=8]
+[ext_resource path="res://parts/barrel.gd" type="Script" id=9]
+[ext_resource path="res://parts/tree.tscn" type="PackedScene" id=10]
 
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 100, 1, 100 )
@@ -82,6 +84,16 @@ shape = SubResource( 6 )
 mesh = SubResource( 7 )
 material/0 = SubResource( 8 )
 
+[node name="ground2" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -199.9, -1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ground2"]
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="ground2/CollisionShape"]
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
 [node name="RigidBody" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 0.6, -1.8 )
 contact_monitor = true
@@ -104,15 +116,19 @@ mesh = ExtResource( 2 )
 
 [node name="barrel" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 1.2, 25.1 )
+script = ExtResource( 9 )
 
 [node name="barrel2" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.6, 1.2, 39 )
+script = ExtResource( 9 )
 
 [node name="barrel3" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.9, 1.2, 1.5 )
+script = ExtResource( 9 )
 
 [node name="barrel4" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -37.5, 1.2, -51.9 )
+script = ExtResource( 9 )
 
 [node name="forest" type="Spatial" parent="."]
 
@@ -665,3 +681,33 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 2.5, 66.4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.9, 2.5, -46.2 )
 
 [node name="killscreen" parent="." instance=ExtResource( 8 )]
+
+[node name="mimic" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -57.9, 0, -40.5 )
+
+[node name="mimic2" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, 0, 59.3 )
+
+[node name="mimic3" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 53.9, 0, 51.1 )
+
+[node name="mimic4" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 53.9, 6.8, -9.9 )
+
+[node name="mimic5" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9, 0.999999, -83.6 )
+
+[node name="mimic6" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.7, 0.999999, -86.4 )
+
+[node name="mimic7" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -165.7, 0.999999, -66.7 )
+
+[node name="mimic8" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -133.5, 0.999999, -35.3 )
+
+[node name="mimic9" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -99.1, 0.999999, 0.999989 )
+
+[node name="mimic10" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.4, 0.999999, -75.7 )

@@ -1,37 +1,5 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://parts/barrel.gd" type="Script" id=1]
-[ext_resource path="res://Models/Barrel.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://parts/mimic.tscn" type="PackedScene" id=1]
 
-[sub_resource type="CylinderShape" id=13]
-height = 2.5
-radius = 1.2
-
-[sub_resource type="SpatialMaterial" id=16]
-albedo_color = Color( 0.615686, 0.556863, 0.27451, 1 )
-
-[sub_resource type="CylinderShape" id=17]
-radius = 8.339
-
-[node name="barrel" type="KinematicBody" groups=["mimic"]]
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 13 )
-
-[node name="model" type="MeshInstance" parent="."]
-mesh = ExtResource( 2 )
-skeleton = NodePath("../..")
-material/0 = SubResource( 16 )
-
-[node name="Area" type="Area" parent="."]
-input_ray_pickable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 17 )
-
-[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
-[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
+[node name="barrel" instance=ExtResource( 1 )]

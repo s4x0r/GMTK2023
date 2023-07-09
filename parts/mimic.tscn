@@ -1,19 +1,54 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Models/Barrel.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://parts/barrel.gd" type="Script" id=2]
 
 [sub_resource type="CylinderShape" id=13]
-height = 2.5
-radius = 1.2
+height = 10.0
+radius = 2.117
 
 [sub_resource type="SpatialMaterial" id=16]
 albedo_color = Color( 0.615686, 0.556863, 0.27451, 1 )
+emission_enabled = true
+emission = Color( 0.901961, 0.054902, 0.054902, 1 )
+emission_energy = 0.0
+emission_operator = 0
+emission_on_uv2 = false
 
 [sub_resource type="CylinderShape" id=17]
 radius = 8.339
 
-[node name="barrel" type="KinematicBody" groups=["mimic"]]
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("model:material/0:emission_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "hit"
+tracks/0/type = "value"
+tracks/0/path = NodePath("model:material/0:emission_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 0.0 ]
+}
+
+[node name="mimic" type="KinematicBody" groups=["mimic"]]
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -32,6 +67,10 @@ input_ray_pickable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 17 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 18 )
+anims/hit = SubResource( 19 )
 
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]

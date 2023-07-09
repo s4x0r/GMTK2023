@@ -19,7 +19,7 @@ func _ready():
 
 func _physics_process(delta):
 	if hp<1:
-		print([name, "died"])
+		#print([name, "died"])
 		queue_free()
 
 	var direction = Vector3.ZERO
@@ -34,8 +34,9 @@ func _physics_process(delta):
 	if get_last_slide_collision() != null:
 		if get_last_slide_collision().collider.name == "swordcollider":
 			hp-=3
-			print([name, "damaged", 3])
+			#print([name, "damaged", 3])
 			direction = direction*Vector3(-1, 0, -1)
+			$AnimationPlayer.play("hit")
 
 	if direction != Vector3.ZERO:
 		direction = -direction.normalized()
@@ -58,7 +59,7 @@ func _physics_process(delta):
 
 
 func _on_Area_body_exited(body:Node):
-	print([body, "exited"])
+	#print([body, "exited"])
 	target = null
 	pass # Replace with function body.
 
@@ -67,5 +68,5 @@ func _on_Area_body_entered(body:Node):
 	if body.name =="guy":
 		target = body
 		pass
-	print([body, "entered"])
+	#print([body, "entered"])
 	pass # Replace with function body.
