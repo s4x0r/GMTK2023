@@ -18,11 +18,6 @@ func _ready():
 
 
 func _physics_process(delta):
-	if get_last_slide_collision() != null:
-		if get_last_slide_collision().collider.name == "swordcollider":
-			hp-=3
-			print([name, "damaged", 3])
-
 	if hp<1:
 		print([name, "died"])
 		queue_free()
@@ -35,6 +30,12 @@ func _physics_process(delta):
 		look_at(direction, Vector3.UP)
 		pass
 
+
+	if get_last_slide_collision() != null:
+		if get_last_slide_collision().collider.name == "swordcollider":
+			hp-=3
+			print([name, "damaged", 3])
+			direction = direction*Vector3(-1, 0, -1)
 
 	if direction != Vector3.ZERO:
 		direction = -direction.normalized()

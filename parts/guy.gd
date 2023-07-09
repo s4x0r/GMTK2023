@@ -4,10 +4,14 @@ extends KinematicBody
 export var speed = 14
 var gravity = 14
 var velocity = Vector3.ZERO
-
+var hp = 20
 
 func _physics_process(delta):
 	var direction = Vector3.ZERO
+	if hp<1:
+		print([name, "died"])
+		$"../killscreen".show()
+		queue_free()
 
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1
@@ -30,6 +34,13 @@ func _physics_process(delta):
 		direction = direction.normalized()
 
 
+
+	if get_last_slide_collision() != null:
+		if "mimic" in get_last_slide_collision().collider.get_groups():
+			hp-=3
+			print([name, "damaged", 3])
+			direction = direction*Vector3(-1, 0, -1)
+
 	velocity.x = direction.x * speed
 	velocity.z = direction.z * speed
 	if not is_on_floor():
@@ -44,3 +55,6 @@ func _on_Area_input_event(camera:Node, event:InputEvent, position:Vector3, norma
 		$pivot.look_at(Vector3(position.x, $pivot.translation.y, position.z), Vector3.UP)
 	
 	pass # Replace with function body.
+
+
+

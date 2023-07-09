@@ -53,7 +53,7 @@ albedo_color = Color( 0.509804, 0.439216, 0.223529, 1 )
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0, 0, 0, 1 )
 
-[node name="chest" type="KinematicBody"]
+[node name="chest" type="KinematicBody" groups=["mimic"]]
 script = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
