@@ -13,7 +13,7 @@ albedo_color = Color( 0.615686, 0.556863, 0.27451, 1 )
 [sub_resource type="CylinderShape" id=17]
 radius = 8.339
 
-[node name="barrel" type="KinematicBody"]
+[node name="barrel" type="KinematicBody" groups=["mimic"]]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true

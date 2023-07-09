@@ -15,11 +15,11 @@ radius = 0.5
 height = 0.5
 
 [sub_resource type="CylinderShape" id=10]
-radius = 0.2
+radius = 0.8
 
 [sub_resource type="CylinderShape" id=9]
 height = 0.5
-radius = 4.0
+radius = 6.0
 
 [node name="guy" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -52,7 +52,7 @@ transform = Transform( -1.09278e-08, -1.09278e-08, 0.25, -0.25, 4.77671e-16, -1.
 mesh = ExtResource( 2 )
 skeleton = NodePath("")
 
-[node name="swordcollider" type="RigidBody" parent="pivot"]
+[node name="swordcollider" type="StaticBody" parent="pivot"]
 
 [node name="CollisionShape" type="CollisionShape" parent="pivot/swordcollider"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.9 )
@@ -65,7 +65,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 9 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.707107, -0.612372, 0.353553, 0, 0.5, 0.866025, -0.707107, -0.612372, 0.353553, 8, 20, 8 )
+transform = Transform( 0.707107, -0.612372, 0.353553, 0, 0.5, 0.866025, -0.707107, -0.612372, 0.353553, 9, 25, 9 )
 projection = 1
 size = 20.0
 
